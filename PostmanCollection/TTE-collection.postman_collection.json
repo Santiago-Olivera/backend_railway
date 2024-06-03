@@ -1,0 +1,2076 @@
+{
+	"info": {
+		"_postman_id": "eeb0b16f-4a14-42ac-8ab3-a967c6664e94",
+		"name": "TTE-collection",
+		"description": "In this collection you will be able to test all the endpoints for the 7 epics",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33381187"
+	},
+	"item": [
+		{
+			"name": "E02 Dynamic Authentication",
+			"item": [
+				{
+					"name": "F01 Sign up administrator",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenAdmin}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"exampletestemployee001@mail.com\",\r\n    \"username\":\"exampletestemployee001\",\r\n    \"password\":\"password\",\r\n    \"role\": \"employee\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Domain}}/api/admin/auth",
+							"host": [
+								"{{Domain}}"
+							],
+							"path": [
+								"api",
+								"admin",
+								"auth"
+							]
+						},
+						"description": "**As** an administrator\n\n**I want to** be able to register new users in the platform.\n\nAC #1: Email is unique  \nAC # 2: Username is unique  \nAC # 3: Valid Role  \nAC # 4: Role administrator/Successful  \nAC # 5: Role Employee/Fail"
+					},
+					"response": []
+				},
+				{
+					"name": "F02 Sign Up Shopper",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"new_shopper@mail.com\",\r\n    \"username\":\"new_shopper\",\r\n    \"password\":\"password\"\r\n}  ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Domain}}/api/auth",
+							"host": [
+								"{{Domain}}"
+							],
+							"path": [
+								"api",
+								"auth"
+							]
+						},
+						"description": "**As** a shopper\n\n**I want to** be able to register in the platform.\n\nAC #1: Email is unique  \nAC # 2: Username is unique"
+					},
+					"response": []
+				},
+				{
+					"name": "F03 Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"pm.collectionVariables.set(\"tokenUser\", data.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"new_shopper@mail.com\",\n    \"password\":\"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Domain}}/api/login",
+							"host": [
+								"{{Domain}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						},
+						"description": "**As** a user\n\n**I want to** be able to login in the platform.\n\nAC #1:  Login user with valid role  \nAC # 2: Session record  \nAC # 3: Avoid Multiple sessions  \nAC # 4: Invalid login (log in with invalid data)"
+					},
+					"response": []
+				},
+				{
+					"name": "F03 Login User Employee",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"pm.collectionVariables.set(\"tokenEmployee\", data.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"employeejuan@mail.com\",\n    \"password\":\"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Domain}}/api/login",
+							"host": [
+								"{{Domain}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						},
+						"description": "**As** a user\n\n**I want to** be able to login in the platform.\n\nAC #1:  Login user with valid role  \nAC # 2: Session record  \nAC # 3: Avoid Multiple sessions  \nAC # 4: Invalid login (log in with invalid data)"
+					},
+					"response": []
+				},
+				{
+					"name": "F03 Login User Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"pm.collectionVariables.set(\"tokenAdmin\", data.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"{{admin_email}}\",\n    \"password\":\"{{admin_password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Domain}}/api/login",
+							"host": [
+								"{{Domain}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						},
+						"description": "**As** a user\n\n**I want to** be able to login in the platform.\n\nAC #1:  Login user with valid role  \nAC # 2: Session record  \nAC # 3: Avoid Multiple sessions  \nAC # 4: Invalid login (log in with invalid data)"
+					},
+					"response": []
+				},
+				{
+					"name": "F04 Logout User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUser}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"new_shopper@mail.com\",\r\n    \"password\":\"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Domain}}/api/logout",
+							"host": [
+								"{{Domain}}"
+							],
+							"path": [
+								"api",
+								"logout"
+							]
+						},
+						"description": "**As** a user\n\n**I want to** be able to logout the platform.\n\nAC #1:  Successfully logout  \nAC #2:  Unsuccessfully logout (user not logged)  \nAC # 3: Session record"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "E03 Products and Categories FAKESTORE API",
+			"item": [
+				{
+					"name": "F01 List of products",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUser}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Domain}}/api/products",
+							"host": [
+								"{{Domain}}"
+							],
+							"path": [
+								"api",
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "F02 List of categories",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{tokenUser}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Domain}}/api/categories",
+							"host": [
+								"{{Domain}}"
+							],
+							"path": [
+								"api",
+								"categories"
+							]
+						},
+						"description": "As an user (employee or shopper), you can get all the categories"
+					},
+					"response": []
+				}
+			],
+			"description": "This epic comprises two features:\n\n1. F01: List of Products\n2. F02: List of Categories\n    \n\nThese features entail retrieving products and categories from the fakestoreapi and storing them in the database. Although there is no specific endpoint or path designated for this purpose, according to the acceptance criteria:\n\nThe user must have the capability to view all categories and products stored in the database."
+		},
+		{
+			"name": "E04 Shopper",
+			"item": [
+				{
+					"name": "Product Filters (F01,F03,F04)",
+					"item": [
+						{
+							"name": "F01 Product Display Page (Order by)",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenUser}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/products?page=1",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"products"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "price",
+											"value": "desc",
+											"disabled": true
+										},
+										{
+											"key": "title",
+											"value": "asc",
+											"disabled": true
+										},
+										{
+											"key": "title",
+											"value": "desc",
+											"disabled": true
+										},
+										{
+											"key": "price",
+											"value": "asc",
+											"disabled": true
+										}
+									]
+								},
+								"description": "As an user, I want to browse and explore the variety of products.  \nCan order by :\n\nprice :  \n\\- asc (lowest to highest)  \n\\- desc (highest to lowest)\n\ntitle :  \n\\- asc (Alphabetic order)  \n\\- desc (reverse)\n\nAC #1: Product Display Page  \nAC #2: Pagination for Product Exploration"
+							},
+							"response": []
+						},
+						{
+							"name": "F03 Category Filters",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenUser}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/products",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"products"
+									],
+									"query": [
+										{
+											"key": "category",
+											"value": "electronics",
+											"disabled": true
+										},
+										{
+											"key": "category",
+											"value": "jewelery",
+											"disabled": true
+										},
+										{
+											"key": "category",
+											"value": "men's clothing",
+											"disabled": true
+										},
+										{
+											"key": "category",
+											"value": "women's clothing",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "2",
+											"disabled": true
+										}
+									]
+								},
+								"description": "As an user , I want a page that displays products filtered according to the category selected.  \n  \nAC #1: Category Filter Page  \nAC #2: Filter Products by Category  \nAC #3: Display Filtered Products (Front)  \nAC #4: Easy Navigation (Front)"
+							},
+							"response": []
+						},
+						{
+							"name": "F04 Product details",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenUser}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Domain}}/api/store/products/374",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"store",
+										"products",
+										"374"
+									]
+								},
+								"description": "As an user,\n\nI want to view detailed information about a specific product\n\nPath :  \napi/store/products/{product_id}\n\nAC #1: Product Detail Page  \nAC #2: Product Photograph  \nAC #3: Detailed Information  \nAC #4: Inventory Control"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "F05 Product Review and ratings",
+					"item": [
+						{
+							"name": "F05.1 retrieve reviews and ratings",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenUser}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Domain}}/api/store/products/345/reviews",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"store",
+										"products",
+										"345",
+										"reviews"
+									]
+								},
+								"description": "As an user I want to view comments and ratings of a product.\n\napi/store/products/{product_id}/reviews  \nAC #1: Reviews and Ratings Section"
+							},
+							"response": []
+						},
+						{
+							"name": "F05.2 Add Review and Rating",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenUser}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"user\" : \"shopperofmonth1\",\r\n    \"comment\" : \"bad\",\r\n    \"rating\" : 3.0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/store/products/345/reviews/add",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"store",
+										"products",
+										"345",
+										"reviews",
+										"add"
+									]
+								},
+								"description": "As an user I want to add comments along with ratings for a product.  \napi/store/products/{product_id}/reviews/add\n\nAC #2: Add a Review and Rating"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "F06 Wishlist",
+					"item": [
+						{
+							"name": "F06.1 Get Wishlist of an user",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenUser}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"user_id\": 74\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/user/wishlist",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"wishlist"
+									]
+								},
+								"description": "As an user I can see a section with the wishlist.  \npath : api/user/wishlist\n\nAC #1: Wishlist Section"
+							},
+							"response": []
+						},
+						{
+							"name": "F06.2 Add product to Wishlist",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenUser}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"user_id\": 74\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/user/wishlist/add/345",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"wishlist",
+										"add",
+										"345"
+									]
+								},
+								"description": "As an user I want the ability to add products to my wishlist.  \npath :api/user/wishlist/add/{product_id}  \nAC #2: Add to Wishlist"
+							},
+							"response": []
+						},
+						{
+							"name": "F06.3 Delete product from the Wishlist",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenUser}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"user_id\": 18\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/user/wishlist/remove/341",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"wishlist",
+										"remove",
+										"341"
+									]
+								},
+								"description": "As an user I want the ability to manage (delete) products from the wishlist.\n\npath : api/user/wishlist/remove/{product_id}\n\nAC #3: Remove from Wishlist"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "E05 Cart and Coupons",
+			"item": [
+				{
+					"name": "Coupons",
+					"item": [
+						{
+							"name": "Get all coupons",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Domain}}/api/admin/coupon/all",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"coupon",
+										"all"
+									]
+								},
+								"description": "As an admin I have the ability to view all coupons"
+							},
+							"response": []
+						},
+						{
+							"name": "Add coupon",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"DELETE\",\r\n  \"discount\" : 30\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/admin/coupon/add",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"coupon",
+										"add"
+									]
+								},
+								"description": "As an admin I have the ability to add new coupons"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete coupon",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n      \"name\": \"DELETE\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/admin/coupon/delete",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"coupon",
+										"delete"
+									]
+								},
+								"description": "As an admin I have the ability to delete existing coupons"
+							},
+							"response": []
+						}
+					],
+					"description": "As an admin, I have the ability to view all the coupons, add new coupons, and delete existing coupons"
+				},
+				{
+					"name": "Cart",
+					"item": [
+						{
+							"name": "Get Cart of an user",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenUser}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"user_id\" : 18\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/cart/all",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"cart",
+										"all"
+									]
+								},
+								"description": "As an user , I want a page that displays the products I've selected before making a purchase"
+							},
+							"response": []
+						},
+						{
+							"name": "Add product to the cart",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenUser}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"user_id\" : 18,\r\n    \"product_id\": 352,\r\n    \"quantity\":1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/cart/add",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"cart",
+										"add"
+									]
+								},
+								"description": "As a shopper, I want the ability to add products to the cart."
+							},
+							"response": []
+						},
+						{
+							"name": "Delete some units of a product",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenUser}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"user_id\" : 18,\r\n    \"product_id\": 342,\r\n    \"quantity\":1\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/cart/remove",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"cart",
+										"remove"
+									]
+								},
+								"description": "As a shopper I wan the ability to manage (remove) products from the cart"
+							},
+							"response": []
+						},
+						{
+							"name": "Apply coupon",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenUser}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"user_id\":18,\r\n    \"coupon_code\":\"CRAZYFRIDAY\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/cart/apply-coupon",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"cart",
+										"apply-coupon"
+									]
+								},
+								"description": "When the user wants to apply a coupon or discount\n\nThen the user can input a coupon code, triggering a request to apply the coupon or discount to their order."
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Checkout",
+					"item": [
+						{
+							"name": "Shopper checkout",
+							"item": [
+								{
+									"name": "Complete Purchase",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{tokenUser}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"user_id\":18\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{Domain}}/api/cart/checkout",
+											"host": [
+												"{{Domain}}"
+											],
+											"path": [
+												"api",
+												"cart",
+												"checkout"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Purchases",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{tokenEmployee}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"user_id\" : 18\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{Domain}}/api/employee/purchases",
+											"host": [
+												"{{Domain}}"
+											],
+											"path": [
+												"api",
+												"employee",
+												"purchases"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Employee manage purchases",
+							"item": [
+								{
+									"name": "Get all purchases",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{tokenEmployee}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{Domain}}/api/employee/purchases/all",
+											"host": [
+												"{{Domain}}"
+											],
+											"path": [
+												"api",
+												"employee",
+												"purchases",
+												"all"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get Purchases of an user",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{tokenEmployee}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"user_id\" : 18\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{Domain}}/api/employee/purchases",
+											"host": [
+												"{{Domain}}"
+											],
+											"path": [
+												"api",
+												"employee",
+												"purchases"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Change status of a purchase",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{tokenEmployee}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"sale_id\" : 7,\r\n    \"status\" : \"TO_SEND\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{Domain}}/api/employee/purchases",
+											"host": [
+												"{{Domain}}"
+											],
+											"path": [
+												"api",
+												"employee",
+												"purchases"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "E06 Admin",
+			"item": [
+				{
+					"name": "Review Jobs (F01-F02)",
+					"item": [
+						{
+							"name": "F01 Review Job",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n \"id\": 373,\r\n \"operation\":\"create\",\r\n \"action\": \"approve\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/reviewJob?type=product",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"reviewJob"
+									],
+									"query": [
+										{
+											"key": "type",
+											"value": "product"
+										}
+									]
+								},
+								"description": "As an admin , I want to be able to Approve jobs that Employees create.  \npath : /api/reviewJob?type=\"category\"  \nwhere type: String identifying what to approve/decline (category, product)  \nAC #1: approve  \nAC #2: Decline"
+							},
+							"response": []
+						},
+						{
+							"name": "F02 View approval jobs",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/jobs",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"jobs"
+									]
+								},
+								"description": "As an admin , I want to be able to view all jobs that require approval from my side."
+							},
+							"response": []
+						}
+					],
+					"description": "In this folder we have the two feature F01 Review Job, where the admin approve or deny the pending jobs, and the F02 View approval Jobs, where the admin view all pending approval jobs."
+				},
+				{
+					"name": "Manage users (F03-F06)",
+					"item": [
+						{
+							"name": "F03 Create new user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\":\"shopperofmonthf1@mail.com\",\r\n    \"username\":\"shopperofmonthf1\",\r\n    \"password\":\"password\",\r\n    \"role\": \"shopper\"\r\n}  ",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/admin/auth",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"auth"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "F04 Get all Users",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Domain}}/api/admin/users/all",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"all"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "F05 Update User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\":\"shopperofmonthf1\",\r\n    \"email\":\"shopperofmonthf1@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/admin/users/update",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "F06 Delete User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\" : \"shopperofmonthf1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/admin/users/delete",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"admin",
+										"users",
+										"delete"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "E07 Employee",
+			"item": [
+				{
+					"name": "CRUD PRODUCTS (F01-F04)",
+					"item": [
+						{
+							"name": "F01 Create product Admin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"title\": \"AMAZING PRODUCT FOR THE DEMO3!!\",\r\n  \"price\": 88,\r\n  \"description\": \"New trend product\",\r\n  \"image\": \"https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg\",\r\n  \"rating\": {\r\n    \"rate\": 4.8,\r\n    \"count\": 2\r\n  },\r\n  \"inventory\": {\r\n    \"total\": 25,\r\n    \"available\": 23\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/products",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"products"
+									]
+								},
+								"description": "As an admin, I can create products.  \nAC #1\n\nGiven title, price, description, category, image, rating And inventory of a product\n\nAnd Token in bearer token to identify role\n\nThen create a new product in the database\n\nIf Role is Admin, the state of product must be approved"
+							},
+							"response": []
+						},
+						{
+							"name": "F01 Create product Employee",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"title\": \"AMAZING PRODUCT FOR THE DEMO3 WITH CATEGORY!!\",\r\n  \"price\": 88,\r\n  \"description\": \"New trend product\",\r\n  \"category\" : \"jewelery\",\r\n  \"image\": \"https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg\",\r\n  \"rating\": {\r\n    \"rate\": 4.8,\r\n    \"count\": 2\r\n  },\r\n  \"inventory\": {\r\n    \"total\": 25,\r\n    \"available\": 23\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/products",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"products"
+									]
+								},
+								"description": "As an employee can create a product, and the state of the product will be Pending."
+							},
+							"response": []
+						},
+						{
+							"name": "F02 View products Admin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenUser}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Domain}}/api/products",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"products"
+									]
+								},
+								"description": "As a Superadmin, Employee, Shopper\n\nI want to view all products\n\nSo, they can see all products available and with inventory"
+							},
+							"response": []
+						},
+						{
+							"name": "F02 View products User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Domain}}/api/products",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"products"
+									]
+								},
+								"description": "As a Superadmin, Employee, Shopper\n\nI want to view all products\n\nSo, they can see all products available and with inventory"
+							},
+							"response": []
+						},
+						{
+							"name": "F03 Update Product Admin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 374,\r\n  \"title\": \"WD 2TB Elements Portable External Hard Drive - USB 3.0\",\r\n  \"price\": 64,\r\n  \"description\": \"USB 5.0 and USB 3.0 Compatibility Fast data transfers Improve PC Performance High Capacity; Compatibility Formatted NTFS for Windows 10, Windows 8.1, Windows 7; Reformatting may be required for other operating systems; Compatibility may vary depending on user’s hardware configuration and operating system\",\r\n  \"category\": \"electronics\",\r\n  \"image\": \"https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg\",\r\n  \"rating\": {\r\n    \"rate\": 3.3,\r\n    \"count\": 203\r\n  },\r\n  \"inventory\": {\r\n    \"total\": 50,\r\n    \"available\": 25\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/products",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"products"
+									]
+								},
+								"description": "As a Superadmin, employee\n\nI want to update field of a specific product\n\nSo, I can modify attributes over a single product.\n\n  \nAC #1:\n\nGiven mandatory ID\n\nAnd optional product fields\n\nThen update the respective in the DB"
+							},
+							"response": []
+						},
+						{
+							"name": "F03 Update Product Employee",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"id\": 374,\r\n  \"title\": \"WD 2TB Elements Portable External Hard Drive - USB 3.0\",\r\n  \"price\": 64,\r\n  \"description\": \"USB 5.0 and USB 3.0 Compatibility Fast data transfers Improve PC Performance High Capacity; Compatibility Formatted NTFS for Windows 10, Windows 8.1, Windows 7; Reformatting may be required for other operating systems; Compatibility may vary depending on user’s hardware configuration and operating system\",\r\n  \"category\": \"electronics\",\r\n  \"image\": \"https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg\",\r\n  \"rating\": {\r\n    \"rate\": 3.3,\r\n    \"count\": 203\r\n  },\r\n  \"inventory\": {\r\n    \"total\": 50,\r\n    \"available\": 25\r\n  }\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/products",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"products"
+									]
+								},
+								"description": "As a Superadmin, employee  \nI want to update field of a specific product  \nSo, I can modify attributes over a single product.\n\nAC #1:  \nGiven mandatory ID  \nAnd optional product fields  \nThen update the respective in the DB"
+							},
+							"response": []
+						},
+						{
+							"name": "F04 Delete Product Admin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":374\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/products",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"products"
+									]
+								},
+								"description": "As an admin , I can remove a product .\n\nAC #1: \n\n**Given** an Id of a product\n\n**Then** remove the product with the Id given in the DB if the role of the user is Admin"
+							},
+							"response": []
+						},
+						{
+							"name": "F04 Delete Product Employee",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\":374\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/products",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"products"
+									]
+								},
+								"description": "As an employee I can create the request to delete a product.  \nAC #2:\n\nGiven an Id of a product\n\nThen change the state of the product to Pending to delete, only if the role of the user is an employee"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CRUD CATEGORIES (F05-F08)",
+					"item": [
+						{
+							"name": "F05 Create Category Admin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" :\"electrodomesticos\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/categories",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"categories"
+									]
+								},
+								"description": "As the admin you can create a new category anytime:  \nRequest Body example :\n\n{     \n\"name\" :\"Cats and Dogs\"  \n}"
+							},
+							"response": []
+						},
+						{
+							"name": "F05 Create Category Employee",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\" :\"mesas\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/categories",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"categories"
+									]
+								},
+								"description": "As Employee, you can request the creation of a category :  \ncategory will have status of PENDING  \nRequestBody example :  \n{  \n\"name\" :\"Cats and Dogs\"  \n}"
+							},
+							"response": []
+						},
+						{
+							"name": "F06 View categories admin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Domain}}/api/categories",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"categories"
+									]
+								},
+								"description": "As the admin you can get all the categories"
+							},
+							"response": []
+						},
+						{
+							"name": "F06 View categories User",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{Domain}}/api/categories",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"categories"
+									]
+								},
+								"description": "As an user (employee or shopper), you can get all the categories"
+							},
+							"response": []
+						},
+						{
+							"name": "F07 Update Category Admin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenAdmin}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 42 ,\r\n    \"name\": \"cat lovers!\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/categories",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"categories"
+									]
+								},
+								"description": "As an admin can update any category, given the id and the new name of the category.  \nBody request :  \n{ \n\n\"id\": 41 ,  \n \"name\": \"flowers\"\n\n}"
+							},
+							"response": []
+						},
+						{
+							"name": "F07 Update Category Employee",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 41 ,\r\n    \"name\": \"lovely kittens\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/categories",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"categories"
+									]
+								},
+								"description": "As an Employee can update any category, given the id and the new name of the category.  \nBody request :  \n{\n\n\"id\": 41 ,  \n\"name\": \"flowers\"\n\n}"
+							},
+							"response": []
+						},
+						{
+							"name": "F08 Delete Category Admin",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiQURNSU4iLCJzdWIiOiJiYWNrZW5kY2hhbGxlbmdlMjAyNEBnbWFpbC5jb20iLCJpYXQiOjE3MTA4NjgwNjcsImV4cCI6MTcxMDg2OTU2N30.WcRBG_q66lz1lk-vcCmbVeJ_yyyKnM0iCIqOeLSlJeg",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 44\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/categories",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"categories"
+									]
+								},
+								"description": "As an admin , can delete any category by id, anytime :  \nRequest Body example :\n\n{\n\n\"id\": 41\n\n}"
+							},
+							"response": []
+						},
+						{
+							"name": "F08 Delete Category Employee",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{tokenEmployee}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 44\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{Domain}}/api/categories",
+									"host": [
+										"{{Domain}}"
+									],
+									"path": [
+										"api",
+										"categories"
+									]
+								},
+								"description": "As an Employee , can make the request to delete any category by id, anytime :  \nRequest Body example :\n\n{\n\n\"id\": 41\n\n}"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "admin_email",
+			"value": "backendchallenge2024@gmail.com"
+		},
+		{
+			"key": "admin_password",
+			"value": "fakePass"
+		},
+		{
+			"key": "Domain",
+			"value": "18.218.100.42:8080",
+			"type": "string"
+		},
+		{
+			"key": "tokenUser",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "tokenEmployee",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "tokenAdmin",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
